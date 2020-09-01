@@ -37,7 +37,10 @@ class MemoStore: ObservableObject{
     }
     // delete 메소드
     func delete(memo: Memo){
-        self.list.removeAll { $0 == memo}
+        DispatchQueue.main.async {
+            self.list.removeAll { $0 == memo}
+        }
+        
     }
     
     //배열에 바로 삭제 하는 메소드 만들기.
