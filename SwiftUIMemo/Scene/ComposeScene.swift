@@ -63,7 +63,6 @@ fileprivate struct SaveButton: View {
             }else{
                 self.store.insert(memo: self.content)
             }
-            self.store.insert(memo: self.content)
             self.show = false
         }, label: {
             Text("저장")
