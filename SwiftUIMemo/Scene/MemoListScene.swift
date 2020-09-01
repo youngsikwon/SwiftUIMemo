@@ -31,7 +31,8 @@ struct MemoListScene: View {
                 ComposeScene(showComposer: self.$showComposer)
                     .environmentObject(self.store)
                 .environmentObject(KeyboardObserver())
-            })
+            }
+            )
         }
     }
 }

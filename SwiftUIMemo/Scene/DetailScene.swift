@@ -15,6 +15,8 @@ struct DetailScene: View {
     
     @EnvironmentObject var formatter: DateFormatter
     
+    @State private var showEditSheet = false
+    
     var body: some View {
         VStack{
             ScrollView{
@@ -31,8 +33,14 @@ struct DetailScene: View {
                             .foregroundColor(Color(UIColor.secondaryLabel))
                     }
                 }
+            HStack{
+                Button(action: {
+                    
+                }, label: {
+                    Image(systemName: "Square.and.pencil")
+                })
             }
-        
+            }
     .navigationBarTitle("메모 보기")
         }
     }
