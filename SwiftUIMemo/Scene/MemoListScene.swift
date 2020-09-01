@@ -16,28 +16,27 @@ struct MemoListScene: View {
     
     @State private var showComposer: Bool = false
     
-    
     var body: some View{
         NavigationView{
             List(store.list){memo in
-                NavigationLink(destination: DetailScene(memo: memo), label: {
+                NavigationLink(destination: DetailScene(memo: memo),
+                    label: {
                      MemoCell(memo: memo)
                 })
                
             }
         .navigationBarTitle("내 메모")
-        .navigationBarItems(trailing: ModalButton(show: $showComposer))
+        .navigationBarItems(trailing: ModalButton(show:
+            $showComposer))
             .sheet(isPresented: $showComposer, content: {
                 ComposeScene(showComposer: self.$showComposer)
                     .environmentObject(self.store)
-                .environmentObject(KeyboardObserver())
-            }
-            )
+                    .environmentObject(KeyboardObserver())
+            })
         }
     }
 }
         
-
 fileprivate struct ModalButton: View {
     @Binding var show: Bool
     

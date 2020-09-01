@@ -10,9 +10,7 @@ import SwiftUI
 
 struct DetailScene: View {
     @ObservedObject var memo: Memo
-    
     @EnvironmentObject var store: MemoStore
-    
     @EnvironmentObject var formatter: DateFormatter
     
     @State private var showEditSheet = false
@@ -20,11 +18,11 @@ struct DetailScene: View {
     var body: some View {
         VStack{
             ScrollView{
-                HStack {
-                    VStack {
+                VStack {
+                    HStack {
                         Text(self.memo.content)
                         .padding()
-                        
+
                         Spacer()
                     }
                         Text("\(self.memo.insertDate, formatter: formatter)")
@@ -37,15 +35,16 @@ struct DetailScene: View {
                 Button(action: {
                     self.showEditSheet.toggle()
                 }, label: {
-                    Image(systemName: "Square.and.pencil")
+                    Image(systemName: "square.and.pencil")
                 })
                 .padding()
-                    .sheet(isPresented: $showEditSheet, content: {
-                        ComposeScene(showComposer: self.$showEditSheet, memo: self.memo)
+                .sheet(isPresented: $showEditSheet, content: {
+                        ComposeScene(showComposer: self.$showEditSheet,
+                                     memo: self.memo)
                             .environmentObject(self.store)
-                        .environmentObject(KeyboardObserver())
+                            .environmentObject(KeyboardObserver())
                     })
-            }
+                }
             }
     .navigationBarTitle("메모 보기")
         }

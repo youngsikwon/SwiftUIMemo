@@ -15,7 +15,7 @@ struct ComposeScene: View {
     
     @Binding var showComposer: Bool
     
-    var memo: Memo? = nil
+    var memo: Memo? = nil // 메모 전달 받으면 편집 -> 쓰기로 변경
     
     
     
@@ -31,7 +31,9 @@ struct ComposeScene: View {
             }
                 .frame(maxWidth: .infinity, maxHeight: .infinity) // 사용 가능한 최대 크기로 됨.
                 .navigationBarTitle(memo != nil ? "메모 편집" : "새 메모", displayMode: .inline)
-                .navigationBarItems(leading: DismissButton(show: $showComposer), trailing: SaveButton(show: $showComposer, content: $content, memo: memo))
+                .navigationBarItems(leading: DismissButton(show:
+                    $showComposer), trailing: SaveButton(show:
+                    $showComposer, content: $content, memo: memo))
         }
         .onAppear {
             self.content = self.memo?.content ?? ""
@@ -56,13 +58,15 @@ fileprivate struct SaveButton: View {
     @Binding var content: String
     
     var memo: Memo? = nil
+    
     var body: some View {
         Button(action: {
             if let memo = self.memo {
                 self.store.update(memo: memo, content: self.content)
-            }else{
+            } else {
                 self.store.insert(memo: self.content)
             }
+            
             self.show = false
         }, label: {
             Text("저장")
