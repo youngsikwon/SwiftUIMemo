@@ -35,10 +35,16 @@ struct DetailScene: View {
                 }
             HStack{
                 Button(action: {
-                    
+                    self.showEditSheet.toggle()
                 }, label: {
                     Image(systemName: "Square.and.pencil")
                 })
+                .padding()
+                    .sheet(isPresented: $showEditSheet, content: {
+                        ComposeScene(showComposer: self.$showEditSheet, memo: self.memo)
+                            .environmentObject(self.store)
+                        .environmentObject(KeyboardObserver())
+                    })
             }
             }
     .navigationBarTitle("메모 보기")
